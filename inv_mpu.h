@@ -22,6 +22,7 @@
 #define _INV_MPU_H_
 
 #include "I2Cdev.h"
+#define MPU9250 // select your chip
 
 //  Define this symbol to get debug messages
 
