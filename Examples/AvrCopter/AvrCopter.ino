@@ -1,7 +1,6 @@
 #include "freeram.h"
 #include "mpu.h"
 #include "I2Cdev.h"
-//#define ERROR_DEBUG //count errors if defined.
 
 /*
 	This library is set up for the MPU9250. If you have
@@ -28,21 +27,9 @@ unsigned int err_o = 0; //cumulative number of MPU/DMP reads that had overflow b
 
 void loop() {
     ret = mympu_update();
+    // errorReporting(); // turn on for debug information
 
-    switch (ret) {
-	case 0: c++; break;
-	case 1: np++; return;
-	case 2: err_o++; return;
-	case 3: err_c++; return; 
-	default: 
-		Serial.print("READ ERROR!  ");
-		Serial.println(ret);
-		return;
-    }
-    if (!(c%25)) { // output only every 25 MPU/DMP reads
-      #ifdef ERROR_DEBUG
-      Serial.print(np); Serial.print("  "); Serial.print(err_c); Serial.print(" "); Serial.print(err_o); Serial.print(" ");
-      #endif
+   if (!(c%25)) { // output only every 25 MPU/DMP reads
 	    Serial.print("Y: "); Serial.print(mympu.ypr[0]);
 	    Serial.print(" P: "); Serial.print(mympu.ypr[1]);
 	    Serial.print(" R: "); Serial.print(mympu.ypr[2]);
@@ -52,3 +39,22 @@ void loop() {
     }
 }
 
+void errorReporting(){
+  if (ret != 0){
+      switch (ret) {
+	case 0: c++; break;
+	case 1: np++; return;
+	case 2: err_o++; return;
+	case 3: err_c++; return; 
+	default: 
+		Serial.print("READ ERROR!  ");
+		Serial.println(ret);
+      }
+      Serial.print(np);
+      Serial.print("  ");
+      Serial.print(err_c);
+      Serial.print(" ");
+      Serial.print(err_o);
+      Serial.print(" ");
+  }
+}
