@@ -1,20 +1,30 @@
+/* ------------- Motion Plug Demo Code -------------
+
+Originally by rpicopter: https://github.com/rpicopter/ArduinoMotionSensorExample
+
+
+Features:
+  - uses FastWire and I2Cdev from Jeff Rowberg
+  - DMP enabled
+  - calculates and displays gyro and quaternions
+  - This has been tested using Arduino 1.0.5, 1.6.1, a few variants of Arduino Pro Mini boards, the Modern Device Robot Board Rev E. (a mega2560), and the JeeNode SMD.
+
+- This library is set up for the MPU9250. If you have
+  a 6050, 6500, or 9150,
+  change #DEFINE MPU9250 to #DEFINE MPU6050,
+  #DEFINE MPU6500, or #DEFINE MPU9150 in inv_mpu.h.
+
+- Default chip configuration values, buried in inv_mpu.h. 
+  Pulled out here for reference:
+    test->reg_rate_div   = 0;    // 1kHz.  
+    test->reg_lpf        = 1;    // 188Hz. 
+    test->reg_gyro_fsr   = 0;    // 250dps. 
+    test->reg_accel_fsr  = 0x18; // 16g.
+*/
+
 #include "freeram.h"
 #include "mpu.h"
 #include "I2Cdev.h"
-
-/*
-	This library is set up for the MPU9250. If you have
-	a 6050, 6500, or 9150,
-	change #DEFINE MPU9250 to #DEFINE MPU6050,
-	#DEFINE MPU6500, or #DEFINE MPU9150 in inv_mpu.h.
-
-	Default chip configuration values:
-	    test->reg_rate_div   = 0;    /* 1kHz. */
-	    test->reg_lpf        = 1;    /* 188Hz. */
-    	    test->reg_gyro_fsr   = 0;    /* 250dps. */
-	    test->reg_accel_fsr  = 0x18; /* 16g. */
-
-*/
 
 int ret;
 void setup() {
