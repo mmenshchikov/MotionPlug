@@ -1,20 +1,27 @@
-/* ------------- Motion Plug Demo Code -------------
+/* ------------- Motion Plug Demo Sketch -------------
 
-Originally by rpicopter: https://github.com/rpicopter/ArduinoMotionSensorExample
+Code for the Modern Device Motion Plug, which uses the MPU 9250 9-axis accelerometer/gyro/compass chip from Invensense.
 
+Lightly modified version of AvrCopter.ino from rpicopter: https://github.com/rpicopter/ArduinoMotionSensorExample
+  
+Note: This is a 3.3v board. If you are using a 5 volt Arduino (or compatible), 
+plug the + line into 3.3v and use series resistors on SDA and SCL for voltage signal level shifting.
+The standard value 10k resistors won't work with high speed I2C, but we found that 4.7k and 3.3k work fine.
 
 Features:
-  - uses FastWire and I2Cdev from Jeff Rowberg
+  - uses FastWire and I2Cdev by Jeff Rowberg
   - DMP enabled
   - calculates and displays gyro and quaternions
-  - This has been tested using Arduino 1.0.5, 1.6.1, a few variants of Arduino Pro Mini boards, the Modern Device Robot Board Rev E. (a mega2560), and the JeeNode SMD.
+  - This has been tested using Arduino 1.0.5, 1.6.1, 
+    a few variants of Arduino Pro Mini boards (atmega328), the Modern Device Robot Board Rev E. (atmega2560),
+    Arduino Mega (atmega2560), the BBLeo (atmega32u4), and the JeeNode SMD (atmega328).
 
-- This library is set up for the MPU9250. If you have
-  a 6050, 6500, or 9150,
+- This library specifies the MPU9250. 
+  If you have an MPU6050, MPU6500, or MPU9150,
   change #DEFINE MPU9250 to #DEFINE MPU6050,
-  #DEFINE MPU6500, or #DEFINE MPU9150 in inv_mpu.h.
+  #DEFINE MPU6500, or #DEFINE MPU9150, respectively in inv_mpu.h.
 
-- Default chip configuration values, buried in inv_mpu.h. 
+- Default chip configuration values, from inv_mpu.h.
   Pulled out here for reference:
     test->reg_rate_div   = 0;    // 1kHz.  
     test->reg_lpf        = 1;    // 188Hz. 
@@ -33,6 +40,7 @@ void setup() {
     ret = mympu_open(200);
     Serial.print("MPU init: "); Serial.println(ret);
     Serial.print("Free mem: "); Serial.println(freeRam());
+    delay(100);
 	
 }
 
