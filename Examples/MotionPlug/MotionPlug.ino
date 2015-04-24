@@ -40,8 +40,8 @@ void setup() {
     ret = mympu_open(200);
     Serial.print("MPU init: "); Serial.println(ret);
     Serial.print("Free mem: "); Serial.println(freeRam());
-    delay(100);
-	
+    delay(100);	
+
 }
 
 unsigned int c = 0; //cumulative number of successful MPU/DMP reads
@@ -60,6 +60,8 @@ void loop() {
 	    Serial.print("\tgy: "); Serial.print(mympu.gyro[0]);
 	    Serial.print(" gp: "); Serial.print(mympu.gyro[1]);
 	    Serial.print(" gr: "); Serial.println(mympu.gyro[2]);
+	    delay(100);	
+
     }
 }
 
