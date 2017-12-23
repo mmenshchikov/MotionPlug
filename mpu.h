@@ -1,5 +1,6 @@
 #ifndef MPU_H
 #define MPU_H
+#include "config.h"
 
 struct s_mympu {
 	float ypr[3];
